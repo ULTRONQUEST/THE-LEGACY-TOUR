@@ -1,6 +1,8 @@
+
 import { defineConfig } from 'vite';
 
 export default defineConfig({
+  base: '/THE-LEGACY-TOUR/',
   root: './src',
   publicDir: '../public',
   build: {
@@ -12,4 +14,5 @@ export default defineConfig({
     open: true,
   },
 });
+
 
