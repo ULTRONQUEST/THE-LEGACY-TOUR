@@ -1,0 +1,6 @@
+{
+  "name": "The Legacy Tour — The Way Home",
+  "description": "Final chapter of The Legacy Tour: a cinematic Three.js 3D space journey from Voyager 1 in interstellar space back home to Earth.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,6 @@
+{
+  "name": "The Legacy Tour — Earth to Moon",
+  "description": "Photorealistic 3D cinematic rocket launch, orbital departure, and lunar approach sequence in Three.js.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

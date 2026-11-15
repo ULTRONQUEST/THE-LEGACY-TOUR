@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>THE LEGACY TOUR — Three Worlds. Three Heroes. One Human Legacy.</title>
+  <meta name="description"
+    content="An interactive expedition through humanity's exploration legacy. Discover the machines we left on the Moon, Mars, and beyond." />
+
+  <!-- Preload critical Earth asset -->
+  <link rel="preload" href="/assets/images/earth-view.png" as="image" />
+
+  <!-- Google Fonts: Orbitron, Inter, IBM Plex Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&family=Orbitron:wght@600;700;800;900&display=swap"
+    rel="stylesheet" />
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="./styles/reset.css" />
+  <link rel="stylesheet" href="./styles/variables.css" />
+  <link rel="stylesheet" href="./styles/main.css" />
+  <link rel="stylesheet" href="./styles/landing.css" />
+  <link rel="stylesheet" href="./styles/destinations.css" />
+  <link rel="stylesheet" href="./styles/registration.css" />
+  <link rel="stylesheet" href="./styles/boarding.css" />
+  <link rel="stylesheet" href="./styles/spacecraft.css" />
+  <link rel="stylesheet" href="./styles/launch.css" />
+  <link rel="stylesheet" href="./styles/animations.css" />
+  <link rel="stylesheet" href="./styles/responsive.css" />
+</head>
+
+<body>
+  <!-- ============================================= -->
+  <!-- STAR FIELD CANVAS (Fixed deep space layer)    -->
+  <!-- ============================================= -->
+  <canvas id="star-canvas" aria-hidden="true"></canvas>
+
+  <!-- ============================================= -->
+  <!-- ATMOSPHERIC EARTH BACKGROUND (Fixed layer)   -->
+  <!-- ============================================= -->
+  <div class="landing__earth-container" aria-hidden="true">
+    <div class="landing__earth-glow"></div>
+    <img src="/assets/images/earth-view.png" alt="" class="landing__earth-image" loading="eager" />
+    <div class="landing__atmosphere-haze"></div>
+    <div class="landing__space-vignette"></div>
+  </div>
+
+  <!-- ============================================= -->
+  <!-- LANDING PAGE (Main 3-Zone Flex Container)     -->
+  <!-- ============================================= -->
+  <main id="landing-page" class="landing" role="main">
+
+    <!-- ------------------------------------------- -->
+    <!-- ZONE 1: TOP BAR (Branding + Metadata)       -->
+    <!-- ------------------------------------------- -->
+    <header class="landing__topbar" aria-label="Expedition archive navigation and status">
+      <div class="topbar__brand">
+        <div class="topbar__insignia" aria-hidden="true">
+          <svg class="topbar__insignia-svg" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="24" cy="24" r="22" stroke="currentColor" stroke-width="1" opacity="0.65" />
+            <circle cx="24" cy="24" r="15" stroke="currentColor" stroke-width="0.75" opacity="0.45" />
+            <circle cx="24" cy="24" r="3.5" fill="currentColor" />
+            <line x1="24" y1="2" x2="24" y2="9" stroke="currentColor" stroke-width="1" opacity="0.7" />
+            <line x1="24" y1="39" x2="24" y2="46" stroke="currentColor" stroke-width="1" opacity="0.7" />
+            <line x1="2" y1="24" x2="9" y2="24" stroke="currentColor" stroke-width="1" opacity="0.7" />
+            <line x1="39" y1="24" x2="46" y2="24" stroke="currentColor" stroke-width="1" opacity="0.7" />
+            <path d="M 24 9 A 15 15 0 0 1 39 24" stroke="currentColor" stroke-width="0.75" stroke-dasharray="2 3"
+              opacity="0.4" />
+          </svg>
+        </div>
+        <div class="topbar__identity">
+          <span class="topbar__title">THE LEGACY TOUR</span>
+          <span class="topbar__subtitle">ARCHIVE 001 · CLASSIFIED EXPLORATION RECORD</span>
+        </div>
+      </div>
+
+      <div class="topbar__meta">
+        <div class="topbar__meta-item">
+          <span class="topbar__meta-key">ARCHIVE</span>
+          <span class="topbar__meta-val">001</span>
+        </div>
+        <span class="topbar__meta-sep">/</span>
+        <div class="topbar__meta-item">
+          <span class="topbar__meta-key">MISSION STATUS</span>
+          <span class="topbar__meta-val topbar__meta-val--waiting">
+            <span class="topbar__pulse-dot" aria-hidden="true"></span>
+            WAITING
+          </span>
+        </div>
+        <span class="topbar__meta-sep topbar__meta-sep--desktop">/</span>
+        <div class="topbar__meta-item topbar__meta-item--desktop">
+          <span class="topbar__meta-key">DESTINATION</span>
+          <span class="topbar__meta-val">UNKNOWN</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- ------------------------------------------- -->
+    <!-- ZONE 2: CENTRE HERO (Headline, Description, CTA) -->
+    <!-- ------------------------------------------- -->
+    <section class="landing__hero" aria-label="Expedition introduction">
+      <div class="hero__tagline-badge">
+        <span class="hero__badge-indicator" aria-hidden="true"></span>
+        <span class="hero__badge-text">HUMAN EXPLORATION RECORD // RECOVERED MISSIONS</span>
+      </div>
+
+      <h1 class="hero__headline">
+        <span class="hero__headline-line hero__headline-line--light">THEY LEFT EARTH.</span>
+        <span class="hero__headline-line hero__headline-line--glow">THEIR LEGACY DIDN'T.</span>
+      </h1>
+
+      <p class="hero__description">
+        Across the Moon, the red deserts of Mars and the darkness between stars,
+        humanity left machines that changed how we understand our universe.
+        Their missions tell a story worth remembering.
+      </p>
+
+      <div class="hero__action-area">
+        <button class="hero__cta-btn" id="unlock-btn" type="button" aria-label="Unlock the expedition">
+          <span class="hero__cta-frame" aria-hidden="true"></span>
+          <span class="hero__cta-scan" aria-hidden="true"></span>
+          <span class="hero__cta-label">UNLOCK THE EXPEDITION</span>
+          <svg class="hero__cta-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </button>
+        <span class="hero__cta-sub">A JOURNEY THROUGH HUMANITY'S EXPLORATION LEGACY</span>
+      </div>
+    </section>
+
+    <!-- ------------------------------------------- -->
+    <!-- ZONE 3: BOTTOM DESTINATIONS (Three Teaser Cards) -->
+    <!-- ------------------------------------------- -->
+    <section class="landing__destinations" aria-label="Expedition destination previews">
+      <div class="destinations__eyebrow">
+        <span class="destinations__eyebrow-text">THREE WORLDS · THREE HEROES · ONE HUMAN LEGACY</span>
+        <span class="destinations__eyebrow-rule" aria-hidden="true"></span>
+      </div>
+
+      <div class="destinations__grid">
+
+        <!-- Card 1: Moon -->
+        <article class="destination-card" data-destination="moon">
+          <div class="destination-card__thumb">
+            <img src="/assets/images/moon.jpeg" alt="The Moon" class="destination-card__image" loading="lazy" />
+            <div class="destination-card__thumb-overlay" aria-hidden="true"></div>
+            <span class="destination-card__badge-index">01</span>
+          </div>
+          <div class="destination-card__details">
+            <div class="destination-card__header-row">
+              <h3 class="destination-card__title">THE MOON</h3>
+              <span class="destination-card__status destination-card__status--archived">ARCHIVED</span>
+            </div>
+            <p class="destination-card__synopsis">The machines that began our journey beyond Earth.</p>
+          </div>
+        </article>
+
+        <!-- Card 2: Mars -->
+        <article class="destination-card" data-destination="mars">
+          <div class="destination-card__thumb">
+            <img src="/assets/images/mars-rover.jpeg" alt="Mars Rover" class="destination-card__image" loading="lazy" />
+            <div class="destination-card__thumb-overlay" aria-hidden="true"></div>
+            <span class="destination-card__badge-index">02</span>
+          </div>
+          <div class="destination-card__details">
+            <div class="destination-card__header-row">
+              <h3 class="destination-card__title">MARS</h3>
+              <span class="destination-card__status destination-card__status--archived">ARCHIVED</span>
+            </div>
+            <p class="destination-card__synopsis">A rover that kept exploring long after its planned mission.</p>
+          </div>
+        </article>
+
+        <!-- Card 3: Interstellar Space -->
+        <article class="destination-card" data-destination="interstellar">
+          <div class="destination-card__thumb">
+            <img src="/assets/images/voyager-1.jpeg" alt="Voyager 1 Spacecraft" class="destination-card__image"
+              loading="lazy" />
+            <div class="destination-card__thumb-overlay" aria-hidden="true"></div>
+            <span class="destination-card__badge-index">03</span>
+          </div>
+          <div class="destination-card__details">
+            <div class="destination-card__header-row">
+              <h3 class="destination-card__title">INTERSTELLAR SPACE</h3>
+              <span class="destination-card__status destination-card__status--active">
+                <span class="destination-card__active-dot" aria-hidden="true"></span>
+                ACTIVE
+              </span>
+            </div>
+            <p class="destination-card__synopsis">A spacecraft still travelling beyond our planetary neighbourhood.</p>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================= -->
+  <!-- SCREEN 2A: PASSENGER REGISTRATION SCREEN      -->
+  <!-- ============================================= -->
+  <section id="registration-page" class="registration-screen" aria-label="Passenger Registration" hidden>
+    <div class="registration-container">
+      <div class="registration-card">
+        <!-- Header -->
+        <header class="registration-header">
+          <div class="registration-brand">
+            <div class="registration-insignia" aria-hidden="true">
+              <svg viewBox="0 0 48 48" fill="none">
+                <circle cx="24" cy="24" r="22" stroke="currentColor" stroke-width="1" opacity="0.65" />
+                <circle cx="24" cy="24" r="15" stroke="currentColor" stroke-width="0.75" opacity="0.45" />
+                <circle cx="24" cy="24" r="3.5" fill="currentColor" />
+                <line x1="24" y1="2" x2="24" y2="9" stroke="currentColor" stroke-width="1" opacity="0.7" />
+                <line x1="24" y1="39" x2="24" y2="46" stroke="currentColor" stroke-width="1" opacity="0.7" />
+                <line x1="2" y1="24" x2="9" y2="24" stroke="currentColor" stroke-width="1" opacity="0.7" />
+                <line x1="39" y1="24" x2="46" y2="24" stroke="currentColor" stroke-width="1" opacity="0.7" />
+              </svg>
+            </div>
+            <span class="registration-brand-title">THE LEGACY TOUR // CHECK-IN</span>
+          </div>
+          <span class="registration-status-badge">
+            <span class="registration-pulse-dot" aria-hidden="true"></span>
+            TERMINAL 01
+          </span>
+        </header>
+
+        <!-- Body -->
+        <div class="registration-body">
+          <div class="registration-intro">
+            <span class="registration-kicker">EXPEDITION PROTOCOL // STEP 01</span>
+            <h2 class="registration-heading">WELCOME, EXPLORER.</h2>
+            <p class="registration-desc">Every great journey begins with a name. Register for your expedition.</p>
+          </div>
+
+          <form class="registration-form" id="registration-form" novalidate>
+            <div class="registration-field">
+              <div class="registration-label-row">
+                <label class="registration-label" for="passenger-name-input">PASSENGER NAME</label>
+                <span class="registration-counter" id="registration-counter">0 / 30</span>
+              </div>
+              <div class="registration-input-wrap">
+                <input type="text" id="passenger-name-input" class="registration-input" placeholder="Enter your name"
+                  maxlength="30" autocomplete="off" spellcheck="false" required />
+              </div>
+              <div class="registration-validation" id="registration-validation-msg" role="alert" aria-live="polite">
+                <svg class="registration-validation-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="2" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="12" y1="8" x2="12" y2="12" />
+                  <line x1="12" y1="16" x2="12.01" y2="16" />
+                </svg>
+                <span id="validation-text">Please enter your name to proceed.</span>
+              </div>
+            </div>
+
+            <button type="submit" class="registration-submit-btn" id="generate-pass-btn">
+              <span>GENERATE MY BOARDING PASS</span>
+              <svg class="registration-submit-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+            </button>
+          </form>
+        </div>
+
+        <!-- Footer -->
+        <footer class="registration-footer">
+          <button type="button" class="registration-return-btn" id="registration-return-btn">
+            <svg class="registration-return-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M19 12H5M11 18l-6-6 6-6" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+            <span>RETURN TO ARCHIVE</span>
+          </button>
+          <span class="registration-code">SEC-ID // CHECKPOINT-A</span>
+        </footer>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================= -->
+  <!-- SCREEN 2B: PERSONALIZED DIGITAL BOARDING PASS -->
+  <!-- ============================================= -->
+  <section id="boarding-page" class="boarding" aria-label="Digital Boarding Pass" hidden>
+    <div class="boarding__container">
+      <div class="boarding__card">
+
+        <!-- Header -->
+        <header class="boarding__card-header">
+          <div class="boarding__header-left">
+            <div class="boarding__card-insignia" aria-hidden="true">
+              <svg viewBox="0 0 48 48" fill="none">
+                <circle cx="24" cy="24" r="22" stroke="currentColor" stroke-width="1" opacity="0.65" />
+                <circle cx="24" cy="24" r="15" stroke="currentColor" stroke-width="0.75" opacity="0.45" />
+                <circle cx="24" cy="24" r="3.5" fill="currentColor" />
+                <line x1="24" y1="2" x2="24" y2="9" stroke="currentColor" stroke-width="1" opacity="0.7" />
+                <line x1="24" y1="39" x2="24" y2="46" stroke="currentColor" stroke-width="1" opacity="0.7" />
+                <line x1="2" y1="24" x2="9" y2="24" stroke="currentColor" stroke-width="1" opacity="0.7" />
+                <line x1="39" y1="24" x2="46" y2="24" stroke="currentColor" stroke-width="1" opacity="0.7" />
+              </svg>
+            </div>
+            <div class="boarding__header-titles">
+              <span class="boarding__card-title">THE LEGACY TOUR</span>
+              <span class="boarding__card-subtitle">THE LEGACY EXPEDITION</span>
+            </div>
+          </div>
+          <div class="boarding__status-cleared">
+            <span class="boarding__status-dot" aria-hidden="true"></span>
+            <span>STATUS: CLEARED FOR DEPARTURE</span>
+          </div>
+        </header>
+
+        <!-- Perforated tear line -->
+        <div class="boarding__tear-line" aria-hidden="true"></div>
+
+        <!-- Body -->
+        <div class="boarding__card-body">
+          <!-- Spotlight Passenger Row -->
+          <div class="boarding__passenger-hero">
+            <div class="boarding__passenger-block">
+              <span class="boarding__field-label">PASSENGER</span>
+              <h2 class="boarding__passenger-name" id="pass-passenger-name">EXPLORER</h2>
+            </div>
+            <div class="boarding__mission-id-block">
+              <span class="boarding__field-label">MISSION ID</span>
+              <span class="boarding__mission-id-val" id="pass-mission-id">EXP-0000-XX</span>
+            </div>
+          </div>
+
+          <!-- Multi-Column Details + Barcode -->
+          <div class="boarding__details-layout">
+            <div class="boarding__meta-grid">
+              <div class="boarding__meta-col">
+                <span class="boarding__field-label">ORIGIN</span>
+                <span class="boarding__field-value">EARTH SPACEPORT</span>
+              </div>
+              <div class="boarding__meta-col">
+                <span class="boarding__field-label">MISSION CLASS</span>
+                <span class="boarding__field-value boarding__field-value--accent">HUMAN EXPLORATION</span>
+              </div>
+              <div class="boarding__meta-col boarding__meta-col--full">
+                <span class="boarding__field-label">DESTINATIONS</span>
+                <span class="boarding__field-value">MOON → MARS → INTERSTELLAR SPACE</span>
+              </div>
+            </div>
+
+            <!-- Decorative Vector Barcode -->
+            <div class="boarding__barcode-zone" aria-hidden="true">
+              <svg class="boarding__barcode-svg" viewBox="0 0 160 56" fill="currentColor">
+                <!-- Barcode stripes -->
+                <rect x="0" y="0" width="3" height="42" />
+                <rect x="5" y="0" width="2" height="42" />
+                <rect x="10" y="0" width="4" height="42" />
+                <rect x="17" y="0" width="1" height="42" />
+                <rect x="21" y="0" width="5" height="42" />
+                <rect x="29" y="0" width="2" height="42" />
+                <rect x="34" y="0" width="3" height="42" />
+                <rect x="40" y="0" width="6" height="42" />
+                <rect x="49" y="0" width="2" height="42" />
+                <rect x="54" y="0" width="4" height="42" />
+                <rect x="61" y="0" width="1" height="42" />
+                <rect x="65" y="0" width="5" height="42" />
+                <rect x="73" y="0" width="3" height="42" />
+                <rect x="79" y="0" width="2" height="42" />
+                <rect x="84" y="0" width="4" height="42" />
+                <rect x="91" y="0" width="2" height="42" />
+                <rect x="96" y="0" width="5" height="42" />
+                <rect x="104" y="0" width="1" height="42" />
+                <rect x="108" y="0" width="4" height="42" />
+                <rect x="115" y="0" width="3" height="42" />
+                <rect x="121" y="0" width="5" height="42" />
+                <rect x="129" y="0" width="2" height="42" />
+                <rect x="134" y="0" width="4" height="42" />
+                <rect x="141" y="0" width="2" height="42" />
+                <rect x="146" y="0" width="6" height="42" />
+                <rect x="155" y="0" width="2" height="42" />
+              </svg>
+              <span class="boarding__barcode-number" id="pass-barcode-text">TLT-2026-EXP</span>
+            </div>
+          </div>
+
+          <!-- Tagline -->
+          <div class="boarding__tagline-bar">
+            <span class="boarding__tagline-text">THREE WORLDS. THREE HEROES. ONE HUMAN LEGACY.</span>
+          </div>
+        </div>
+
+        <!-- Perforated tear line -->
+        <div class="boarding__tear-line" aria-hidden="true"></div>
+
+        <!-- Actions -->
+        <div class="boarding__actions-area">
+          <button type="button" class="boarding__primary-cta-btn" id="enter-spacecraft-btn">
+            <span>ENTER THE SPACECRAFT</span>
+            <svg class="boarding__cta-arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+          </button>
+
+          <div class="boarding__secondary-row">
+            <div class="boarding__btn-group">
+              <button type="button" class="boarding__tool-btn" id="pass-edit-btn" title="Edit passenger name">
+                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"
+                  aria-hidden="true">
+                  <path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
+                </svg>
+                <span>EDIT NAME</span>
+              </button>
+              <button type="button" class="boarding__tool-btn boarding__tool-btn--danger" id="pass-reset-btn"
+                title="Reset registration data">
+                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"
+                  aria-hidden="true">
+                  <polyline points="1 4 1 10 7 10" />
+                  <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10" />
+                </svg>
+                <span>RESET REGISTRATION</span>
+              </button>
+            </div>
+
+            <button type="button" class="boarding__return-link" id="return-btn">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.75"
+                aria-hidden="true">
+                <path d="M19 12H5M11 18l-6-6 6-6" />
+              </svg>
+              <span>RETURN TO ARCHIVE</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================= -->
+  <!-- SCREEN 3: CINEMATIC SPACECRAFT CABIN (PHASE 3) -->
+  <!-- ============================================= -->
+  <section id="spacecraft-page" class="spacecraft-cabin-screen" aria-label="Spacecraft Cabin Flight Deck" hidden>
+
+    <!-- LAYER 1: Panoramic Observation Viewport with Earth -->
+    <div class="cabin-exterior-viewport view--clear" id="cabin-observation-viewport" aria-hidden="true">
+      <video class="cabin-earth-media" autoplay loop muted playsinline>
+        <source src="/assets/images/earth-rotation.mp4" type="video/mp4" />
+      </video>
+      <img src="/assets/images/earth-view.png" alt="" class="cabin-earth-fallback" />
+
+      <!-- Viewport HUD Grid Overlay -->
+      <div class="cabin-hud-grid"></div>
+
+      <!-- Center Orbital Pitch/Yaw Reticle -->
+      <svg class="cabin-crosshair-svg" viewBox="0 0 100 100" fill="none">
+        <circle cx="50" cy="50" r="32" stroke="currentColor" stroke-width="0.5" stroke-dasharray="2 4" opacity="0.6" />
+        <circle cx="50" cy="50" r="18" stroke="currentColor" stroke-width="0.75" opacity="0.8" />
+        <circle cx="50" cy="50" r="2.5" fill="currentColor" />
+        <line x1="50" y1="2" x2="50" y2="12" stroke="currentColor" stroke-width="1" />
+        <line x1="50" y1="88" x2="50" y2="98" stroke="currentColor" stroke-width="1" />
+        <line x1="2" y1="50" x2="12" y2="50" stroke="currentColor" stroke-width="1" />
+        <line x1="88" y1="50" x2="98" y2="50" stroke="currentColor" stroke-width="1" />
+      </svg>
+
+      <!-- Glass Optical Reflection Sheen -->
+      <div class="cabin-glass-sheen"></div>
+    </div>
+
+    <!-- LAYER 2: Structural Bulkhead Frame & Mullion Struts -->
+    <div class="cabin-structural-frame" aria-hidden="true">
+      <div class="cabin-mullion-left"></div>
+      <div class="cabin-mullion-right"></div>
+    </div>
+
+    <!-- LAYER 3: Top Canopy Bulkhead Bar -->
+    <header class="cabin-top-canopy">
+      <div class="cabin-canopy-brand">
+        <div class="cabin-canopy-insignia" aria-hidden="true">
+          <svg viewBox="0 0 48 48" fill="none">
+            <circle cx="24" cy="24" r="22" stroke="currentColor" stroke-width="1" opacity="0.65" />
+            <circle cx="24" cy="24" r="15" stroke="currentColor" stroke-width="0.75" opacity="0.45" />
+            <circle cx="24" cy="24" r="3.5" fill="currentColor" />
+            <line x1="24" y1="2" x2="24" y2="9" stroke="currentColor" stroke-width="1" opacity="0.7" />
+            <line x1="24" y1="39" x2="24" y2="46" stroke="currentColor" stroke-width="1" opacity="0.7" />
+            <line x1="2" y1="24" x2="9" y2="24" stroke="currentColor" stroke-width="1" opacity="0.7" />
+            <line x1="39" y1="24" x2="46" y2="24" stroke="currentColor" stroke-width="1" opacity="0.7" />
+          </svg>
+        </div>
+        <span class="cabin-canopy-title">THE LEGACY EXPEDITION</span>
+        <span class="cabin-canopy-subtitle">// ORBITAL FLIGHT DECK · DOCK 07</span>
+      </div>
+
+      <div class="cabin-canopy-tools">
+        <!-- Audio Mute/Unmute Toggle Button -->
+        <button type="button" class="cabin-audio-btn" id="cabin-audio-toggle-btn"
+          aria-label="Toggle synthesized cabin ambience audio" aria-pressed="false">
+          <svg class="cabin-audio-icon" id="cabin-audio-toggle-icon" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07" />
+          </svg>
+          <span id="cabin-audio-toggle-text">CABIN AUDIO: MUTED</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- LAYER 4: Center Floating HUD Welcome & Mission Status Strip -->
+    <div class="cabin-center-hud">
+      <div class="cabin-welcome-badge">
+        <h2 class="cabin-welcome-heading" id="cabin-welcome-text">WELCOME ABOARD, EXPLORER</h2>
+      </div>
+      <div class="cabin-mission-strip">
+        <span class="cabin-mission-label">MISSION ID:</span>
+        <span class="cabin-mission-val" id="cabin-mission-id-badge">EXP-0000-XX</span>
+        <span class="cabin-mission-sep">|</span>
+        <span class="cabin-mission-label">TRAJECTORY:</span>
+        <span class="cabin-dest-val" id="cabin-destinations-badge">MOON → MARS → INTERSTELLAR</span>
+      </div>
+    </div>
+
+    <!-- LAYER 5: Passenger Seats Foreground Silhouettes -->
+    <div class="cabin-seat-silhouette-left" aria-hidden="true"></div>
+    <div class="cabin-seat-silhouette-right" aria-hidden="true"></div>
+
+    <!-- LAYER 6: Interactive Dashboard Flight Deck -->
+    <footer class="cabin-dashboard-deck">
+
+      <!-- Collapsible Telemetry Drawer Overlay -->
+      <div class="cabin-telemetry-drawer" id="cabin-telemetry-drawer" role="region"
+        aria-label="Mission Telemetry System">
+        <div class="telemetry-drawer-header">
+          <span class="telemetry-drawer-title">MISSION CONTROL // EXPEDITION TELEMETRY</span>
+          <span class="telemetry-key">ORBIT: 420 KM · INCLINATION: 28.5°</span>
+        </div>
+        <div class="telemetry-drawer-grid">
+          <div class="telemetry-item">
+            <span class="telemetry-key">REGISTERED EXPLORER</span>
+            <span class="telemetry-val" id="cabin-telemetry-passenger">EXPLORER</span>
+          </div>
+          <div class="telemetry-item">
+            <span class="telemetry-key">MISSION IDENTIFIER</span>
+            <span class="telemetry-val telemetry-val--amber" id="cabin-telemetry-mission">EXP-0000-XX</span>
+          </div>
+          <div class="telemetry-item">
+            <span class="telemetry-key">CABIN ATMOSPHERE</span>
+            <span class="telemetry-val telemetry-val--cyan">101.3 kPa · 21.0% O2 · NOMINAL</span>
+          </div>
+          <div class="telemetry-item">
+            <span class="telemetry-key">PROPULSION STATUS</span>
+            <span class="telemetry-val">STANDBY // CRYOGENIC TANKS CHILLED</span>
+          </div>
+          <div class="telemetry-item">
+            <span class="telemetry-key">PRIMARY GUIDANCE</span>
+            <span class="telemetry-val telemetry-val--cyan">STAR TRACKER SYNCHRONIZED</span>
+          </div>
+          <div class="telemetry-item">
+            <span class="telemetry-key">SUBSYSTEM DIAGNOSTICS</span>
+            <span class="telemetry-val telemetry-val--cyan">ALL 12/12 CHANNELS ACTIVE</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Controls Row -->
+      <div class="cabin-controls-grid">
+
+        <!-- Module 1: Clickable Seatbelt Indicator -->
+        <div class="cabin-seatbelt-module">
+          <span class="cabin-module-label">PASSENGER SAFETY</span>
+          <button type="button" class="cabin-seatbelt-btn is-unfastened" id="cabin-seatbelt-toggle"
+            aria-label="Seatbelt unfastened. Click to secure.">
+            <div class="cabin-seatbelt-icon-wrap" id="cabin-seatbelt-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="9" />
+                <path d="M12 8v8" />
+                <path d="M8 12h8" />
+              </svg>
+            </div>
+            <div class="cabin-seatbelt-text-group">
+              <span class="cabin-seatbelt-title">SAFETY HARNESS</span>
+              <span class="cabin-seatbelt-badge" id="cabin-seatbelt-status-text">UNFASTENED</span>
+            </div>
+          </button>
+        </div>
+
+        <!-- Module 2: Center Controls (Observation Window Filters & Telemetry Toggle) -->
+        <div class="cabin-center-modules">
+          <div class="cabin-filter-group" role="group" aria-label="Observation Viewport Modes">
+            <button type="button" class="cabin-window-filter-btn is-selected" data-view-mode="clear">CLEAR VIEW</button>
+            <button type="button" class="cabin-window-filter-btn" data-view-mode="hud">SPECTRAL HUD</button>
+            <button type="button" class="cabin-window-filter-btn" data-view-mode="tint">POLARIZED TINT</button>
+          </div>
+
+          <button type="button" class="cabin-telemetry-btn" id="cabin-telemetry-toggle-btn">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"
+              aria-hidden="true">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+              <line x1="8" y1="21" x2="16" y2="21" />
+              <line x1="12" y1="17" x2="12" y2="21" />
+            </svg>
+            <span class="telemetry-btn-label">MISSION TELEMETRY [OPEN]</span>
+          </button>
+        </div>
+
+        <!-- Module 3: Departure Readiness & Launch Sequence Authorization -->
+        <div class="cabin-launch-module">
+          <div class="cabin-status-row">
+            <span class="cabin-module-label">DEPARTURE STATUS:</span>
+            <div class="cabin-status-pill status--warning" id="cabin-departure-status">
+              <span class="cabin-status-pulse-dot" aria-hidden="true"></span>
+              <span id="cabin-departure-status-text">PRE-FLIGHT CHECKS</span>
+            </div>
+          </div>
+
+          <button type="button" class="cabin-launch-btn" id="cabin-launch-btn" disabled>
+            <span>INITIATE LAUNCH SEQUENCE</span>
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2"
+              aria-hidden="true">
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
+          </button>
+
+          <span class="cabin-launch-hint" id="cabin-launch-hint">SECURE SEATBELT TO AUTHORIZE LAUNCH</span>
+        </div>
+
+      </div>
+
+      <!-- Bottom Utility Bar -->
+      <div class="cabin-bottom-utilities">
+        <button type="button" class="cabin-return-btn" id="cabin-return-boarding-btn">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"
+            aria-hidden="true">
+            <path d="M19 12H5M11 18l-6-6 6-6" />
+          </svg>
+          <span>RETURN TO BOARDING PASS</span>
+        </button>
+        <span class="cabin-serial-tag">ORBITAL CRAFT // REGISTRY: LGC-EXP-001</span>
+      </div>
+
+    </footer>
+
+  </section>
+
+  <!-- ============================================= -->
+  <!-- SCREEN 4A: LAUNCH AUTHORIZATION & PRE-FLIGHT GATE -->
+  <!-- ============================================= -->
+  <section id="launch-placeholder-page" class="launch-placeholder-screen" aria-label="Launch Sequence Authorized"
+    hidden>
+    <div class="launch-placeholder-container">
+      <div class="launch-placeholder-card">
+
+        <!-- Header -->
+        <header class="launch-placeholder-header">
+          <div class="launch-placeholder-brand">
+            <div class="launch-placeholder-insignia" aria-hidden="true">
+              <svg viewBox="0 0 48 48" fill="none">
+                <circle cx="24" cy="24" r="22" stroke="currentColor" stroke-width="1" opacity="0.65" />
+                <circle cx="24" cy="24" r="15" stroke="currentColor" stroke-width="0.75" opacity="0.45" />
+                <circle cx="24" cy="24" r="3.5" fill="currentColor" />
+                <line x1="24" y1="2" x2="24" y2="9" stroke="currentColor" stroke-width="1" opacity="0.7" />
+                <line x1="24" y1="39" x2="24" y2="46" stroke="currentColor" stroke-width="1" opacity="0.7" />
+                <line x1="2" y1="24" x2="9" y2="24" stroke="currentColor" stroke-width="1" opacity="0.7" />
+                <line x1="39" y1="24" x2="46" y2="24" stroke="currentColor" stroke-width="1" opacity="0.7" />
+              </svg>
+            </div>
+            <span class="launch-placeholder-brand-title">THE LEGACY TOUR // LAUNCH PROTOCOL</span>
+          </div>
+          <span class="launch-badge-authorized">
+            <span class="launch-pulse-dot" aria-hidden="true"></span>
+            AUTHORISED
+          </span>
+        </header>
+
+        <!-- Body -->
+        <div class="launch-placeholder-body">
+          <div class="launch-icon-wrap" aria-hidden="true">
+            <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M32 4C24 16 20 28 20 44L32 56L44 44C44 28 40 16 32 4Z" fill="rgba(212, 165, 74, 0.12)" />
+              <circle cx="32" cy="28" r="6" stroke-width="1.4" />
+              <path d="M20 36L10 46V52L20 46" />
+              <path d="M44 36L54 46V52L44 46" />
+              <path d="M28 54L32 62L36 54" />
+            </svg>
+          </div>
+
+          <div class="launch-text-group">
+            <span class="launch-kicker">PHASE 4 // MISSION LIFTOFF GATE</span>
+            <h2 class="launch-headline">LAUNCH SEQUENCE AUTHORISED</h2>
+            <h3 class="launch-subheadline">FINAL PRE-FLIGHT VERIFICATION</h3>
+            <p class="launch-desc">All spacecraft systems are nominal. Destination: The Moon. Prepare for ignition and
+              ascent.</p>
+          </div>
+
+          <div class="launch-telemetry-box" aria-label="Launch readiness telemetry">
+            <div class="launch-telemetry-row">
+              <span class="launch-telemetry-key">PASSENGER ABOARD</span>
+              <span class="launch-telemetry-val" id="launch-passenger-name">EXPLORER</span>
+            </div>
+            <div class="launch-telemetry-row">
+              <span class="launch-telemetry-key">MISSION IDENTIFIER</span>
+              <span class="launch-telemetry-val launch-telemetry-val--amber" id="launch-mission-id">EXP-0000-XX</span>
+            </div>
+            <div class="launch-telemetry-row">
+              <span class="launch-telemetry-key">MAIN ENGINES</span>
+              <span class="launch-telemetry-val launch-telemetry-val--cyan">PRE-CHILL COMPLETE // FUEL PRESSURE
+                RAMPING</span>
+            </div>
+            <div class="launch-telemetry-row">
+              <span class="launch-telemetry-key">GUIDANCE & TRAJECTORY</span>
+              <span class="launch-telemetry-val launch-telemetry-val--cyan">STAR TRACKER SYNCHRONIZED // LUNAR
+                VECTOR</span>
+            </div>
+            <div class="launch-telemetry-row">
+              <span class="launch-telemetry-key">SEQUENCE STATUS</span>
+              <span class="launch-telemetry-val launch-telemetry-val--amber">READY FOR 3D CINEMATIC LIFTOFF (PHASE
+                4)</span>
+            </div>
+          </div>
+
+          <!-- Primary Launch CTA -->
+          <button type="button" class="launch-commence-btn" id="launch-start-cinematic-btn">
+            <span>COMMENCE LIFTOFF SEQUENCE</span>
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2"
+              aria-hidden="true">
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
+          </button>
+
+          <!-- Automatic Countdown Progress Meter -->
+          <div class="launch-auto-timer-bar" aria-hidden="true">
+            <div class="launch-auto-timer-fill" id="launch-auto-timer-progress"></div>
+            <span class="launch-auto-timer-text" id="launch-auto-timer-label">AUTO-COMMENCING IN 3s...</span>
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="launch-placeholder-footer">
+          <button type="button" class="launch-return-cabin-btn" id="launch-return-cabin-btn">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+              aria-hidden="true">
+              <path d="M19 12H5M11 18l-6-6 6-6" />
+            </svg>
+            <span>RETURN TO CABIN</span>
+          </button>
+          <button type="button" class="launch-archive-link" id="launch-return-archive-btn">
+            <span>RETURN TO ARCHIVE</span>
+          </button>
+        </footer>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================= -->
+  <!-- SCREEN 4B: PHASE 4 CINEMATIC 3D LAUNCH SCENE  -->
+  <!-- ============================================= -->
+  <section id="launch-scene-page" class="launch-scene-screen" aria-label="Cinematic Rocket Launch Sequence" hidden>
+    <!-- Fullscreen Three.js WebGL Mount Container -->
+    <div id="launch-canvas-mount" class="launch-canvas-mount" aria-label="3D Rocket Launch Viewport"></div>
+
+    <!-- Cross-fade Transition Curtain -->
+    <div id="tour-transition-curtain" class="tour-transition-curtain" aria-hidden="true">
+      <div class="curtain-inner">
+        <div class="curtain-logo" aria-hidden="true">
+          <svg viewBox="0 0 48 48" fill="none" width="48" height="48">
+            <circle cx="24" cy="24" r="22" stroke="currentColor" stroke-width="1" opacity="0.65" />
+            <circle cx="24" cy="24" r="15" stroke="currentColor" stroke-width="0.75" opacity="0.45" />
+            <circle cx="24" cy="24" r="3.5" fill="currentColor" />
+            <line x1="24" y1="2" x2="24" y2="9" stroke="currentColor" stroke-width="1" opacity="0.7" />
+            <line x1="24" y1="39" x2="24" y2="46" stroke="currentColor" stroke-width="1" opacity="0.7" />
+            <line x1="2" y1="24" x2="9" y2="24" stroke="currentColor" stroke-width="1" opacity="0.7" />
+            <line x1="39" y1="24" x2="46" y2="24" stroke="currentColor" stroke-width="1" opacity="0.7" />
+          </svg>
+        </div>
+        <span class="curtain-brand">THE LEGACY TOUR</span>
+        <span id="tour-curtain-status" class="curtain-status">PREPARING NEXT DESTINATION...</span>
+        <div class="curtain-spinner" aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <!-- Grand Tribute Overlay (shown after all 5 scenes complete) -->
+    <div id="grand-tribute-overlay" class="grand-tribute-overlay" hidden aria-modal="true" role="dialog"
+      aria-label="The Legacy Tour — Grand Finale">
+      <div class="tribute-backdrop" aria-hidden="true"></div>
+      <div class="tribute-modal">
+        <!-- Header -->
+        <div class="tribute-header">
+          <div class="tribute-insignia" aria-hidden="true">
+            <svg viewBox="0 0 64 64" fill="none" width="64" height="64">
+              <circle cx="32" cy="32" r="30" stroke="currentColor" stroke-width="1.2" opacity="0.6" />
+              <circle cx="32" cy="32" r="20" stroke="currentColor" stroke-width="0.8" opacity="0.4" />
+              <circle cx="32" cy="32" r="4" fill="currentColor" />
+              <path d="M 32 12 A 20 20 0 0 1 52 32" stroke="currentColor" stroke-width="1.5" />
+              <path d="M 32 52 A 20 20 0 0 1 12 32" stroke="currentColor" stroke-width="1.5" opacity="0.5" />
+            </svg>
+          </div>
+          <span class="tribute-kicker">MISSION COMPLETE // EXPEDITION ACHIEVED</span>
+        </div>
+
+        <!-- Primary Statements -->
+        <h2 class="tribute-headline">THREE WORLDS. THREE HEROES. ONE HUMAN LEGACY.</h2>
+        <p class="tribute-subheadline">ABANDONED. BUT NOT FORGOTTEN.</p>
+
+        <!-- Hero Summary Cards -->
+        <div class="tribute-heroes">
+          <div class="tribute-hero-card">
+            <div class="hero-card-year">1969</div>
+            <div class="hero-card-name">APOLLO 11</div>
+            <div class="hero-card-subtitle">Tranquility Base · First Lunar Landing</div>
+            <p class="hero-card-desc">Neil Armstrong and Buzz Aldrin stepped onto the lunar surface. Their bootprints
+              remain undisturbed in the vacuum of space, a permanent record of humanity's greatest leap.</p>
+          </div>
+          <div class="tribute-hero-card">
+            <div class="hero-card-year">2004 – 2018</div>
+            <div class="hero-card-name">OPPORTUNITY</div>
+            <div class="hero-card-subtitle">MER-B Rover · Meridiani Planum, Mars</div>
+            <p class="hero-card-desc">Designed for 90 days, it lasted 15 years. Opportunity traversed 45.16 km across
+              the Martian surface before a planet-wide dust storm silenced it forever — resting in Perseverance Valley.
+            </p>
+          </div>
+          <div class="tribute-hero-card">
+            <div class="hero-card-year">1977 – Present</div>
+            <div class="hero-card-name">VOYAGER 1</div>
+            <div class="hero-card-subtitle">163 AU · Interstellar Space</div>
+            <p class="hero-card-desc">The farthest human-made object from Earth, now drifting silently through
+              interstellar space — still transmitting, still carrying humanity's Golden Record beyond the edge of our
+              solar system.</p>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="tribute-actions">
+          <button type="button" class="tribute-cta-btn tribute-cta-btn--primary" id="tribute-phase5-btn">
+            <span>CONTINUE TO PHASE 5</span>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2"
+              aria-hidden="true">
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
+          </button>
+          <button type="button" class="tribute-cta-btn" id="tribute-replay-btn">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+              aria-hidden="true">
+              <polyline points="1 4 1 10 7 10" />
+              <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10" />
+            </svg>
+            <span>REPLAY FULL EXPEDITION</span>
+          </button>
+          <button type="button" class="tribute-secondary-btn" id="tribute-cabin-btn">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"
+              aria-hidden="true">
+              <path d="M19 12H5M11 18l-6-6 6-6" />
+            </svg>
+            <span>RETURN TO CABIN</span>
+          </button>
+          <button type="button" class="tribute-secondary-btn" id="tribute-archive-btn">
+            <span>RETURN TO ARCHIVE</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Subtle Cinematic Film Vignette -->
+    <div class="launch-cinematic-vignette" aria-hidden="true"></div>
+
+    <!-- MISSION CONTROL TOP OVERLAY -->
+    <header class="launch-hud-header" aria-label="Mission Control Telemetry Header">
+      <!-- Left: Mission & Chapter Metadata -->
+      <div class="launch-hud-editorial">
+        <div class="launch-hud-top-meta">
+          <span class="launch-hud-tag">MISSION CONTROL</span>
+          <span class="launch-hud-sep">//</span>
+          <span class="launch-hud-tag" id="launch-hud-mission">THE LEGACY TOUR</span>
+          <span class="launch-hud-sep">·</span>
+          <span class="launch-hud-tag" id="launch-hud-destination">DESTINATION: THE MOON</span>
+        </div>
+        <h1 class="launch-chapter-title" id="launch-chapter-kicker">01. The Grand Launch Centre</h1>
+        <p class="launch-chapter-sub" id="launch-chapter-subtitle">Coastal Launch Complex 39 · Sunrise Preparation</p>
+        <div class="launch-crew-meta">
+          <span class="launch-meta-label">CREW:</span>
+          <span class="launch-meta-val" id="launch-hud-passenger">EXPLORER</span>
+          <span class="launch-hud-sep">|</span>
+          <span class="launch-meta-label">MISSION ID:</span>
+          <span class="launch-meta-val launch-meta-val--amber" id="launch-hud-mission-id">EXP-0000-XX</span>
+        </div>
+      </div>
+
+      <!-- Right: System Status & Controls -->
+      <div class="launch-hud-right">
+        <div class="launch-status-pill">
+          <span class="launch-status-pulse-dot" aria-hidden="true"></span>
+          <span id="launch-status-indicator">SYSTEMS NOMINAL // COUNTDOWN IN PROGRESS</span>
+        </div>
+        <div class="launch-systems-status">
+          <span class="launch-systems-label">SPACECRAFT SYSTEMS:</span>
+          <span class="launch-systems-val" id="launch-hud-systems">ALL 12/12 CHANNELS ACTIVE // NOMINAL</span>
+        </div>
+
+        <div class="launch-hud-actions">
+          <!-- Audio Toggle (Muted by default) -->
+          <button type="button" class="launch-hud-btn" id="launch-audio-toggle"
+            aria-label="Launch soundscape muted. Click to enable sound." aria-pressed="false">
+            <svg class="launch-hud-btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              aria-hidden="true">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+              <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07" />
+            </svg>
+            <span id="launch-audio-text">MUTED</span>
+          </button>
+
+          <!-- Skip Cinematic Button -->
+          <button type="button" class="launch-hud-btn launch-hud-btn--skip" id="launch-skip-btn"
+            title="Skip to next destination">
+            <svg class="launch-hud-btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              aria-hidden="true">
+              <polygon points="5 4 15 12 5 20 5 4" />
+              <line x1="19" y1="5" x2="19" y2="19" />
+            </svg>
+            <span>NEXT DESTINATION</span>
+          </button>
+
+          <!-- Abort to Cabin Button -->
+          <button type="button" class="launch-hud-btn launch-hud-btn--subtle" id="launch-abort-btn"
+            title="Return to spacecraft cabin">
+            <svg class="launch-hud-btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              aria-hidden="true">
+              <path d="M19 12H5M11 18l-6-6 6-6" />
+            </svg>
+            <span>CABIN</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- DESTINATION PROGRESS PILLS -->
+    <nav class="tour-dest-nav" aria-label="Expedition destination progress">
+      <button type="button" class="tour-dest-pill is-active" data-dest="0" aria-label="Destination 1: Ignition">
+        <span class="dest-pill-code">01</span>
+        <span class="dest-pill-label">IGNITION</span>
+      </button>
+      <div class="dest-pill-connector" aria-hidden="true"></div>
+      <button type="button" class="tour-dest-pill" data-dest="1" aria-label="Destination 2: The Moon">
+        <span class="dest-pill-code">02</span>
+        <span class="dest-pill-label">THE MOON</span>
+      </button>
+      <div class="dest-pill-connector" aria-hidden="true"></div>
+      <button type="button" class="tour-dest-pill" data-dest="2" aria-label="Destination 3: Mars">
+        <span class="dest-pill-code">03</span>
+        <span class="dest-pill-label">MARS</span>
+      </button>
+      <div class="dest-pill-connector" aria-hidden="true"></div>
+      <button type="button" class="tour-dest-pill" data-dest="3" aria-label="Destination 4: Interstellar">
+        <span class="dest-pill-code">04</span>
+        <span class="dest-pill-label">VOYAGER</span>
+      </button>
+      <div class="dest-pill-connector" aria-hidden="true"></div>
+      <button type="button" class="tour-dest-pill" data-dest="4" aria-label="Destination 5: Way Home">
+        <span class="dest-pill-code">05</span>
+        <span class="dest-pill-label">HOME</span>
+      </button>
+    </nav>
+
+    <!-- EDUCATIONAL INSIGHT CARD (Interactive floating storyteller) -->
+    <aside class="launch-edu-card" id="launch-edu-card" role="region" aria-label="Educational Spaceflight Insight">
+      <div class="launch-edu-header">
+        <div class="launch-edu-badge-group">
+          <span class="launch-edu-kicker">EDUCATIONAL INSIGHT</span>
+          <span class="launch-edu-category" id="launch-edu-topic">AERODYNAMICS & ASCENT</span>
+        </div>
+        <button type="button" class="launch-edu-close-btn" id="launch-edu-close" aria-label="Dismiss insight card">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"
+            aria-hidden="true">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
+      </div>
+
+      <h3 class="launch-edu-title" id="launch-edu-title">WHY DO ROCKETS LAUNCH VERTICALLY?</h3>
+      <p class="launch-edu-body" id="launch-edu-body">Rockets initially travel straight upward to gain altitude and
+        punch through the thickest, densest layers of Earth's atmosphere as quickly as possible.</p>
+
+      <div class="launch-edu-footer">
+        <div class="launch-edu-dots" id="launch-edu-dots" aria-label="Topic navigation"></div>
+        <button type="button" class="launch-edu-next-btn" id="launch-edu-next">
+          <span>NEXT INSIGHT</span>
+          <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"
+            aria-hidden="true">
+            <path d="M5 12h14M13 6l6 6-6 6" />
+          </svg>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Minimized Educational Pill (Shows when card is dismissed) -->
+    <button type="button" class="launch-edu-pill" id="launch-edu-pill" aria-label="Open flight insights" hidden>
+      <span class="edu-pill-pulse" aria-hidden="true"></span>
+      <span class="edu-pill-label">INSIGHTS</span>
+      <span class="edu-pill-count" id="edu-pill-count">1/5</span>
+    </button>
+
+    <!-- UNIFIED COLLAPSIBLE BOTTOM CONTROL DOCK -->
+    <div class="launch-bottom-dock" id="launch-bottom-dock">
+      <!-- Collapse / Expand Toggle Button -->
+      <button type="button" class="launch-dock-toggle-btn" id="launch-dock-toggle"
+        aria-label="Hide or show timeline controls">
+        <span class="toggle-icon">▼</span>
+        <span class="toggle-text">HIDE CONTROLS</span>
+      </button>
+
+      <div class="launch-dock-surface">
+        <!-- Timeline Scrubber & Shot Jumpers -->
+        <div id="ignition-only-controls">
+          <div class="launch-timeline-row">
+            <input type="range" id="launch-scrubber" class="launch-scrubber" min="0" max="78" step="0.05" value="0"
+              aria-label="Launch timeline scrubber" />
+            <div class="launch-shot-jumper-group" id="launch-shot-jumper-group" aria-label="Camera sequence chapters">
+              <!-- Dynamically populated with 9 shot buttons -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Transport Controls & Live Mission Telemetry -->
+        <div class="launch-controls-row">
+          <!-- Left: Play/Pause/Restart -->
+          <div class="launch-transport-group">
+            <button type="button" class="launch-control-btn launch-control-btn--play" id="launch-play-btn"
+              aria-label="Play / Pause">
+              <span id="launch-play-icon">❚❚</span>
+              <span>PLAY/PAUSE</span>
+            </button>
+            <button type="button" class="launch-control-btn" id="launch-replay-btn"
+              title="Restart sequence from launch pad">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"
+                aria-hidden="true">
+                <polyline points="1 4 1 10 7 10" />
+                <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10" />
+              </svg>
+              <span>RESTART</span>
+            </button>
+          </div>
+
+          <!-- Center: High-Precision Telemetry Readout -->
+          <div class="launch-telemetry-readout" aria-label="Telemetry readouts">
+            <div class="telemetry-stat">
+              <span class="telemetry-stat-label">CLOCK:</span>
+              <span class="telemetry-stat-val" id="launch-telemetry-clock">T-00:24</span>
+            </div>
+            <span class="telemetry-stat-sep">·</span>
+            <div class="telemetry-stat">
+              <span class="telemetry-stat-label">ALTITUDE:</span>
+              <span class="telemetry-stat-val" id="launch-telemetry-altitude">0.0 km</span>
+            </div>
+            <span class="telemetry-stat-sep">·</span>
+            <div class="telemetry-stat">
+              <span class="telemetry-stat-label">VELOCITY:</span>
+              <span class="telemetry-stat-val" id="launch-telemetry-velocity">0.00 km/s</span>
+            </div>
+            <span class="telemetry-stat-sep">·</span>
+            <div class="telemetry-stat">
+              <span class="telemetry-stat-label">STAGE:</span>
+              <span class="telemetry-stat-val telemetry-stat-val--phase" id="launch-telemetry-phase">PAD
+                PREPARATION</span>
+            </div>
+          </div>
+
+          <!-- Right: Playback Speed Selector -->
+          <div class="launch-speed-group" role="group" aria-label="Playback speed">
+            <button type="button" class="launch-speed-btn is-active" data-speed="1">1x</button>
+            <button type="button" class="launch-speed-btn" data-speed="1.5">1.5x</button>
+            <button type="button" class="launch-speed-btn" data-speed="2">2x</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 4 COMPLETION SCREEN OVERLAY (Earth from Space & Moon Handover) -->
+    <div class="launch-completion-overlay" id="launch-completion-overlay" hidden>
+      <div class="launch-completion-modal">
+        <div class="completion-insignia" aria-hidden="true">
+          <svg viewBox="0 0 64 64" fill="none">
+            <circle cx="32" cy="32" r="30" stroke="currentColor" stroke-width="1.2" opacity="0.6" />
+            <circle cx="32" cy="32" r="20" stroke="currentColor" stroke-width="0.8" opacity="0.4" />
+            <circle cx="32" cy="32" r="4" fill="currentColor" />
+            <path d="M 32 12 A 20 20 0 0 1 52 32" stroke="currentColor" stroke-width="1.5" />
+          </svg>
+        </div>
+
+        <span class="completion-kicker">PHASE 4 COMPLETE // ORBITAL INSERTION ACHIEVED</span>
+        <h2 class="completion-headline">EARTH IS JUST THE BEGINNING</h2>
+        <h3 class="completion-subheadline">NEXT DESTINATION: THE MOON</h3>
+        <p class="completion-desc">
+          Trans-lunar injection vector confirmed. Our spacecraft has broken free from Earth's gravity well. Ahead lies
+          humanity's first historic extraterrestrial frontier: the Moon.
+        </p>
+
+        <div class="completion-actions">
+          <button type="button" class="completion-cta-btn" id="launch-continue-moon-btn">
+            <span>CONTINUE TO THE MOON</span>
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2"
+              aria-hidden="true">
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
+          </button>
+
+          <div class="completion-secondary-btns">
+            <button type="button" class="completion-tool-btn" id="completion-replay-btn">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"
+                aria-hidden="true">
+                <polyline points="1 4 1 10 7 10" />
+                <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10" />
+              </svg>
+              <span>REPLAY LAUNCH CINEMATIC</span>
+            </button>
+            <button type="button" class="completion-tool-btn" id="completion-cabin-btn">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"
+                aria-hidden="true">
+                <path d="M19 12H5M11 18l-6-6 6-6" />
+              </svg>
+              <span>RETURN TO CABIN</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================= -->
+  <!-- SCREEN 5: PHASE 5 MISSION COMPLETE & FINAL TRIBUTE -->
+  <!-- ============================================= -->
+  <section id="moon-page" class="moon-screen" aria-label="Phase 5: Mission Complete — The Legacy Tour" hidden>
+    <div class="moon-container">
+      <div class="moon-card">
+        <!-- Header -->
+        <header class="moon-header">
+          <div class="moon-brand">
+            <div class="moon-insignia" aria-hidden="true">
+              <svg viewBox="0 0 48 48" fill="none">
+                <circle cx="24" cy="24" r="22" stroke="currentColor" stroke-width="1" opacity="0.65" />
+                <circle cx="24" cy="24" r="14" fill="rgba(212, 165, 74, 0.25)" stroke="currentColor" stroke-width="1" />
+                <circle cx="20" cy="20" r="3" fill="currentColor" opacity="0.4" />
+                <circle cx="28" cy="26" r="2" fill="currentColor" opacity="0.4" />
+              </svg>
+            </div>
+            <div class="moon-brand-text">
+              <span class="moon-title">THE LEGACY TOUR</span>
+              <span class="moon-subtitle">PHASE 5 // THE FINAL TRIBUTE</span>
+            </div>
+          </div>
+          <span class="moon-status-badge">
+            <span class="moon-pulse-dot" aria-hidden="true"></span>
+            MISSION COMPLETE
+          </span>
+        </header>
+
+        <!-- Body -->
+        <div class="moon-body">
+          <!-- Three Worlds, Three Heroes Visual Grid -->
+          <div class="moon-tribute-grid" aria-label="Humanity's Three Exploratory Monuments">
+            <div class="moon-tribute-item">
+              <div class="moon-tribute-img-wrap">
+                <img src="/assets/aistudio/APOLLO_6056b825.jpeg" alt="Apollo 11 Tranquility Base on the Moon"
+                  class="moon-tribute-img" />
+              </div>
+              <div class="moon-tribute-info">
+                <span class="moon-tribute-tag">THE MOON · 1969</span>
+                <h4 class="moon-tribute-name">APOLLO 11 · TRANQUILITY BASE</h4>
+                <p class="moon-tribute-desc">Human bootprints and the descent stage of Eagle standing undisturbed in the
+                  lunar vacuum.</p>
+              </div>
+            </div>
+
+            <div class="moon-tribute-item">
+              <div class="moon-tribute-img-wrap">
+                <img src="/assets/aistudio/MARS_ROVER_64b36fe1.jpeg" alt="Opportunity Rover on Mars"
+                  class="moon-tribute-img" />
+              </div>
+              <div class="moon-tribute-info">
+                <span class="moon-tribute-tag">MARS · 2004–2018</span>
+                <h4 class="moon-tribute-name">OPPORTUNITY · ENDEAVOUR CRATER</h4>
+                <p class="moon-tribute-desc">15 Earth years and 45.16 km across the red sands, resting peacefully in
+                  Perseverance Valley.</p>
+              </div>
+            </div>
+
+            <div class="moon-tribute-item">
+              <div class="moon-tribute-img-wrap">
+                <img src="/assets/aistudio/VOYAGER_1_9a9c9e26.jpeg" alt="Voyager 1 in Interstellar Space"
+                  class="moon-tribute-img" />
+              </div>
+              <div class="moon-tribute-info">
+                <span class="moon-tribute-tag">INTERSTELLAR · 163 AU</span>
+                <h4 class="moon-tribute-name">VOYAGER 1 · BEYOND THE SUN</h4>
+                <p class="moon-tribute-desc">Humanity's farthest emissary, carrying our Golden Record into the silent
+                  deep between the stars.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="moon-narrative">
+            <span class="moon-kicker">MISSION COMPLETE // THE FINAL CHAPTER</span>
+            <h2 class="moon-headline">THREE WORLDS. THREE HEROES. ONE HUMAN LEGACY.</h2>
+            <p class="moon-lead">
+              Though continents of dust and billions of kilometers separate them across the cosmic dark, these three
+              monuments share one human origin. The spacecraft, rovers, and footprints we left behind on the Moon, on
+              Mars, and in interstellar space are not abandoned relics — they are humanity's permanent beacons of
+              curiosity, courage, and scientific vision. Though missions end and machines fall silent, their discoveries
+              and contributions remain an eternal part of human history.
+            </p>
+
+            <div class="moon-telemetry-grid">
+              <div class="moon-telemetry-item">
+                <span class="moon-telemetry-key">HONORED EXPLORER</span>
+                <span class="moon-telemetry-val" id="moon-passenger-name">EXPLORER</span>
+              </div>
+              <div class="moon-telemetry-item">
+                <span class="moon-telemetry-key">EXPEDITION REGISTRATION</span>
+                <span class="moon-telemetry-val moon-telemetry-val--amber" id="moon-mission-id">EXP-0000-XX</span>
+              </div>
+              <div class="moon-telemetry-item">
+                <span class="moon-telemetry-key">EXPEDITION STATUS</span>
+                <span class="moon-telemetry-val moon-telemetry-val--cyan">MISSION COMPLETE // 5 DESTINATIONS</span>
+              </div>
+              <div class="moon-telemetry-item">
+                <span class="moon-telemetry-key">HUMAN HERITAGE</span>
+                <span class="moon-telemetry-val">ABANDONED, BUT NEVER FORGOTTEN</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="moon-footer">
+          <div class="moon-footer-group">
+            <button type="button" class="moon-btn moon-btn--primary" id="moon-return-archive-btn"
+              title="Return to beginning of website">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+                aria-hidden="true">
+                <polyline points="1 4 1 10 7 10" />
+                <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10" />
+              </svg>
+              <span>RESTART JOURNEY</span>
+            </button>
+            <button type="button" class="moon-btn moon-btn--secondary" id="moon-replay-launch-btn"
+              title="Replay the 5-scene cinematic journey">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+                aria-hidden="true">
+                <polygon points="5 4 15 12 5 20 5 4" />
+                <line x1="19" y1="5" x2="19" y2="19" />
+              </svg>
+              <span>REVISIT JOURNEY</span>
+            </button>
+            <button type="button" class="moon-btn moon-btn--secondary" id="moon-return-cabin-btn"
+              title="Return to spacecraft flight deck">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+                aria-hidden="true">
+                <path d="M19 12H5M11 18l-6-6 6-6" />
+              </svg>
+              <span>RETURN TO CABIN</span>
+            </button>
+          </div>
+        </footer>
+      </div>
+    </div>
+  </section>
+
+  <!-- Scripts -->
+  <script type="module" src="./js/main.js"></script>
+</body>
+
+</html>

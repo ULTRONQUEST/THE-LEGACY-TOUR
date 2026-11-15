@@ -1,0 +1,916 @@
+/* ============================================= */
+/* SPACECRAFT CABIN — CINEMATIC INTERIOR         */
+/* ============================================= */
+.spacecraft-cabin-screen {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-boarding);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: #020408;
+  overflow: hidden;
+  user-select: none;
+}
+
+.spacecraft-cabin-screen[hidden] {
+  display: none !important;
+}
+
+/* --------------------------------------------- */
+/* LAYER 1: PANORAMIC OBSERVATION VIEWPORT       */
+/* --------------------------------------------- */
+.cabin-exterior-viewport {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(
+    circle at 50% 60%,
+    rgba(10, 24, 48, 0.4) 0%,
+    #020408 85%
+  );
+  transition: filter 0.5s ease, opacity 0.8s ease;
+}
+
+/* Background Earth Video / Image */
+.cabin-earth-media {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -46%) scale(1.08);
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: cover;
+  pointer-events: none;
+  filter: saturate(1.15) brightness(0.9);
+  transition: filter 0.4s ease, transform 0.6s ease;
+}
+
+/* Fallback image if video fails or is loading */
+.cabin-earth-fallback {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -46%);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+/* Observation Window Modes */
+.cabin-exterior-viewport.view--tint .cabin-earth-media,
+.cabin-exterior-viewport.view--tint .cabin-earth-fallback {
+  filter: saturate(0.6) brightness(0.65) hue-rotate(185deg);
+}
+
+.cabin-exterior-viewport.view--hud .cabin-hud-grid {
+  opacity: 1 !important;
+}
+
+/* Viewport HUD Reticle Grid */
+.cabin-hud-grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.35;
+  transition: opacity 0.35s ease;
+  background:
+    radial-gradient(circle at 50% 50%, transparent 40%, rgba(77, 201, 246, 0.05) 70%),
+    linear-gradient(rgba(77, 201, 246, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(77, 201, 246, 0.06) 1px, transparent 1px);
+  background-size: 100% 100%, 60px 60px, 60px 60px;
+}
+
+/* Center Crosshair Vector */
+.cabin-crosshair-svg {
+  position: absolute;
+  top: 48%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 220px;
+  height: 220px;
+  color: rgba(77, 201, 246, 0.35);
+  pointer-events: none;
+}
+
+/* Glass Reflection Sheen */
+.cabin-glass-sheen {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.04) 0%,
+    transparent 40%,
+    rgba(77, 201, 246, 0.02) 60%,
+    transparent 80%
+  );
+}
+
+/* --------------------------------------------- */
+/* LAYER 2: COCKPIT STRUCTURAL BULKHEAD FRAME    */
+/* --------------------------------------------- */
+.cabin-structural-frame {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  box-shadow: inset 0 0 120px rgba(0, 0, 0, 0.95),
+              inset 0 0 60px rgba(4, 8, 16, 0.8);
+}
+
+/* Left & Right Window Mullion Struts */
+.cabin-mullion-left,
+.cabin-mullion-right {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: clamp(28px, 4vw, 56px);
+  background: linear-gradient(
+    90deg,
+    #060a12 0%,
+    #0f1724 60%,
+    #080c16 100%
+  );
+  box-shadow: 0 0 24px rgba(0, 0, 0, 0.85);
+  z-index: 6;
+}
+
+.cabin-mullion-left {
+  left: 0;
+  border-right: 1px solid rgba(77, 201, 246, 0.15);
+}
+
+.cabin-mullion-right {
+  right: 0;
+  border-left: 1px solid rgba(77, 201, 246, 0.15);
+}
+
+/* Glowing LED Edge Trim */
+.cabin-mullion-left::after,
+.cabin-mullion-right::after {
+  content: '';
+  position: absolute;
+  top: 15%;
+  bottom: 25%;
+  width: 2px;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    var(--color-atmosphere-cyan) 30%,
+    var(--color-amber) 70%,
+    transparent 100%
+  );
+  opacity: 0.7;
+}
+
+.cabin-mullion-left::after { right: 0; }
+.cabin-mullion-right::after { left: 0; }
+
+/* --------------------------------------------- */
+/* LAYER 3: TOP CANOPY BULKHEAD                  */
+/* --------------------------------------------- */
+.cabin-top-canopy {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem clamp(1.25rem, 3.5vw, 3rem);
+  background: linear-gradient(
+    180deg,
+    rgba(5, 8, 14, 0.96) 0%,
+    rgba(8, 14, 24, 0.85) 75%,
+    transparent 100%
+  );
+  border-bottom: 1px solid rgba(77, 201, 246, 0.12);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.cabin-canopy-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.cabin-canopy-insignia {
+  width: 24px;
+  height: 24px;
+  color: var(--color-amber);
+  flex-shrink: 0;
+}
+
+.cabin-canopy-insignia svg {
+  width: 100%;
+  height: 100%;
+}
+
+.cabin-canopy-title {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--color-off-white);
+}
+
+.cabin-canopy-subtitle {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  color: var(--color-subtle);
+  margin-left: 0.5rem;
+}
+
+/* Top Right Audio & Status Controls */
+.cabin-canopy-tools {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.cabin-audio-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.75rem;
+  background: rgba(5, 8, 14, 0.75);
+  border: 1px solid rgba(232, 230, 225, 0.14);
+  border-radius: 3px;
+  color: var(--color-muted);
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-out-quart);
+}
+
+.cabin-audio-btn:hover {
+  color: var(--color-off-white);
+  border-color: rgba(77, 201, 246, 0.4);
+}
+
+.cabin-audio-btn.is-active {
+  color: var(--color-atmosphere-cyan);
+  border-color: var(--color-atmosphere-cyan);
+  background: rgba(77, 201, 246, 0.1);
+  box-shadow: 0 0 12px rgba(77, 201, 246, 0.2);
+}
+
+.cabin-audio-icon {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+}
+
+/* --------------------------------------------- */
+/* LAYER 4: CENTER HUD WELCOME & TELEMETRY       */
+/* --------------------------------------------- */
+.cabin-center-hud {
+  position: relative;
+  z-index: 10;
+  max-width: 760px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 var(--page-padding-x);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.65rem;
+  pointer-events: none;
+}
+
+.cabin-welcome-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 1rem;
+  background: rgba(5, 10, 20, 0.78);
+  border: 1px solid rgba(77, 201, 246, 0.35);
+  border-radius: 3px;
+  box-shadow: 0 0 24px rgba(77, 201, 246, 0.12),
+              inset 0 0 12px rgba(77, 201, 246, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.cabin-welcome-heading {
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 2.4vw, 1.6rem);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--color-off-white);
+  line-height: 1.2;
+  text-shadow: 0 0 20px rgba(77, 201, 246, 0.25);
+}
+
+/* Compact Mission Overview Strip */
+.cabin-mission-strip {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.3rem 0.85rem;
+  background: rgba(5, 8, 14, 0.65);
+  border: 1px solid rgba(232, 230, 225, 0.1);
+  border-radius: 2px;
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.cabin-mission-label {
+  color: var(--color-subtle);
+}
+
+.cabin-mission-val {
+  color: var(--color-amber);
+  font-weight: 600;
+}
+
+.cabin-mission-sep {
+  color: var(--color-faint);
+}
+
+.cabin-dest-val {
+  color: var(--color-atmosphere-cyan);
+  font-weight: 500;
+}
+
+/* --------------------------------------------- */
+/* LAYER 5: COCKPIT LOWER DECK & DASHBOARD       */
+/* --------------------------------------------- */
+.cabin-dashboard-deck {
+  position: relative;
+  z-index: 15;
+  width: 100%;
+  background: linear-gradient(
+    0deg,
+    #04070d 0%,
+    #070d18 45%,
+    #0a1322 80%,
+    rgba(12, 21, 36, 0.98) 100%
+  );
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(77, 201, 246, 0.25);
+  box-shadow: 0 -12px 40px rgba(0, 0, 0, 0.9),
+              0 -2px 16px rgba(77, 201, 246, 0.15);
+  padding: 1rem clamp(1.25rem, 3.5vw, 3rem) 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+/* Subtle dashboard metallic texture top seam */
+.cabin-dashboard-deck::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--color-atmosphere-cyan) 30%,
+    var(--color-amber) 70%,
+    transparent 100%
+  );
+}
+
+/* Dashboard Controls Grid */
+.cabin-controls-grid {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 1.25rem;
+  align-items: center;
+  max-width: 1380px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Interactive Seatbelt Module */
+.cabin-seatbelt-module {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.cabin-module-label {
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--color-subtle);
+  text-transform: uppercase;
+}
+
+.cabin-seatbelt-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.65rem 1.15rem;
+  background: rgba(14, 24, 40, 0.8);
+  border: 1px solid rgba(212, 165, 74, 0.35);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-out-quart);
+}
+
+.cabin-seatbelt-btn.is-unfastened {
+  border-color: rgba(212, 165, 74, 0.5);
+  background: rgba(212, 165, 74, 0.08);
+  box-shadow: 0 0 16px rgba(212, 165, 74, 0.12);
+}
+
+.cabin-seatbelt-btn.is-secured {
+  border-color: var(--color-atmosphere-cyan);
+  background: rgba(77, 201, 246, 0.12);
+  box-shadow: 0 0 20px rgba(77, 201, 246, 0.25),
+              inset 0 0 10px rgba(77, 201, 246, 0.1);
+}
+
+.cabin-seatbelt-icon-wrap {
+  width: 18px;
+  height: 18px;
+  color: var(--color-amber);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color var(--duration-fast) ease;
+}
+
+.cabin-seatbelt-btn.is-secured .cabin-seatbelt-icon-wrap {
+  color: var(--color-atmosphere-cyan);
+}
+
+.cabin-seatbelt-text-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1px;
+}
+
+.cabin-seatbelt-title {
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--color-off-white);
+}
+
+.cabin-seatbelt-badge {
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+}
+
+.cabin-seatbelt-btn.is-unfastened .cabin-seatbelt-badge {
+  color: var(--color-amber);
+  animation: status-blink 1.8s ease-in-out infinite;
+}
+
+.cabin-seatbelt-btn.is-secured .cabin-seatbelt-badge {
+  color: var(--color-atmosphere-cyan);
+}
+
+/* Shake alert animation when unfastened launch attempted */
+.cabin-seatbelt-btn.shake-alert {
+  animation: cabin-shake 0.4s ease-in-out;
+  border-color: #ff5252 !important;
+  box-shadow: 0 0 24px rgba(255, 82, 82, 0.4) !important;
+}
+
+/* Center Dashboard Module (Window Filters + Telemetry Toggle) */
+.cabin-center-modules {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.cabin-filter-group {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px;
+  background: rgba(5, 8, 14, 0.85);
+  border: 1px solid rgba(232, 230, 225, 0.14);
+  border-radius: 4px;
+}
+
+.cabin-window-filter-btn {
+  padding: 0.45rem 0.85rem;
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--color-muted);
+  background: transparent;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-out-quart);
+}
+
+.cabin-window-filter-btn:hover {
+  color: var(--color-off-white);
+}
+
+.cabin-window-filter-btn.is-selected {
+  color: var(--color-deep-black);
+  background: var(--color-atmosphere-cyan);
+  font-weight: 600;
+  box-shadow: 0 0 12px rgba(77, 201, 246, 0.4);
+}
+
+/* Telemetry Drawer Toggle Button */
+.cabin-telemetry-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.5rem 0.95rem;
+  background: rgba(10, 18, 32, 0.7);
+  border: 1px solid rgba(77, 201, 246, 0.25);
+  border-radius: 4px;
+  color: var(--color-off-white);
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-out-quart);
+}
+
+.cabin-telemetry-btn:hover {
+  background: rgba(14, 24, 44, 0.9);
+  border-color: var(--color-atmosphere-cyan);
+}
+
+.cabin-telemetry-btn.is-active {
+  background: rgba(77, 201, 246, 0.15);
+  border-color: var(--color-atmosphere-cyan);
+  box-shadow: 0 0 16px rgba(77, 201, 246, 0.2);
+}
+
+/* Right Launch Module */
+.cabin-launch-module {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.35rem;
+}
+
+.cabin-status-row {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.cabin-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  padding: 2px 7px;
+  border-radius: 2px;
+}
+
+.cabin-status-pill.status--warning {
+  color: var(--color-amber);
+  background: rgba(212, 165, 74, 0.08);
+  border: 1px solid rgba(212, 165, 74, 0.3);
+}
+
+.cabin-status-pill.status--ready {
+  color: var(--color-atmosphere-cyan);
+  background: rgba(77, 201, 246, 0.1);
+  border: 1px solid rgba(77, 201, 246, 0.4);
+}
+
+.cabin-status-pulse-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+  animation: status-blink 1.8s ease-in-out infinite;
+}
+
+/* The Launch Button */
+.cabin-launch-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem 1.65rem;
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  border-radius: 4px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all var(--duration-normal) var(--ease-out-quart);
+}
+
+/* Disabled State */
+.cabin-launch-btn:disabled {
+  color: var(--color-muted);
+  background: rgba(232, 230, 225, 0.06);
+  border: 1px solid rgba(232, 230, 225, 0.12);
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+/* Enabled & Authorized State */
+.cabin-launch-btn.is-enabled {
+  color: var(--color-deep-black);
+  background: linear-gradient(
+    90deg,
+    var(--color-atmosphere-cyan) 0%,
+    #8ee2ff 100%
+  );
+  border: 1px solid var(--color-atmosphere-cyan);
+  box-shadow: 0 4px 24px rgba(77, 201, 246, 0.35);
+  animation: launch-glow-pulse 2s ease-in-out infinite;
+}
+
+.cabin-launch-btn.is-enabled:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 32px rgba(77, 201, 246, 0.55);
+  filter: brightness(1.08);
+}
+
+.cabin-launch-hint {
+  font-family: var(--font-mono);
+  font-size: 0.52rem;
+  letter-spacing: 0.1em;
+  color: var(--color-subtle);
+  transition: color var(--duration-fast) ease;
+}
+
+.cabin-launch-hint.hint--authorized {
+  color: var(--color-atmosphere-cyan);
+}
+
+/* Dashboard Bottom Utilities */
+.cabin-bottom-utilities {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1380px;
+  margin: 0 auto;
+  width: 100%;
+  padding-top: 0.35rem;
+  border-top: 1px solid rgba(232, 230, 225, 0.06);
+}
+
+.cabin-return-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--color-muted);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color var(--duration-fast) ease;
+}
+
+.cabin-return-btn:hover {
+  color: var(--color-amber);
+}
+
+.cabin-serial-tag {
+  font-family: var(--font-mono);
+  font-size: 0.52rem;
+  letter-spacing: 0.14em;
+  color: var(--color-faint);
+}
+
+/* --------------------------------------------- */
+/* LAYER 6: COLLAPSIBLE TELEMETRY DRAWER         */
+/* --------------------------------------------- */
+.cabin-telemetry-drawer {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  width: 90%;
+  max-width: 720px;
+  background: rgba(5, 10, 18, 0.94);
+  border: 1px solid rgba(77, 201, 246, 0.3);
+  border-bottom: none;
+  border-radius: 6px 6px 0 0;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 1.25rem 1.5rem;
+  box-shadow: 0 -16px 48px rgba(0, 0, 0, 0.8),
+              0 0 32px rgba(77, 201, 246, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.35s var(--ease-out-expo);
+  z-index: 20;
+}
+
+.cabin-telemetry-drawer.is-open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+
+.telemetry-drawer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(232, 230, 225, 0.08);
+  padding-bottom: 0.5rem;
+}
+
+.telemetry-drawer-title {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--color-atmosphere-cyan);
+}
+
+.telemetry-drawer-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.65rem 1.5rem;
+}
+
+.telemetry-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+}
+
+.telemetry-key {
+  color: var(--color-subtle);
+}
+
+.telemetry-val {
+  color: var(--color-off-white);
+  font-weight: 500;
+}
+
+.telemetry-val--cyan {
+  color: var(--color-atmosphere-cyan);
+}
+
+.telemetry-val--amber {
+  color: var(--color-amber);
+}
+
+/* --------------------------------------------- */
+/* LAYER 7: PASSENGER SEAT SILHOUETTES           */
+/* --------------------------------------------- */
+.cabin-seat-silhouette-left,
+.cabin-seat-silhouette-right {
+  position: absolute;
+  bottom: 0;
+  width: clamp(100px, 15vw, 200px);
+  height: clamp(80px, 12vh, 160px);
+  z-index: 12;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.cabin-seat-silhouette-left {
+  left: clamp(24px, 4vw, 60px);
+  background: radial-gradient(
+    ellipse at 40% 100%,
+    #050812 0%,
+    #09101d 50%,
+    transparent 75%
+  );
+  border-top-right-radius: 40px;
+}
+
+.cabin-seat-silhouette-right {
+  right: clamp(24px, 4vw, 60px);
+  background: radial-gradient(
+    ellipse at 60% 100%,
+    #050812 0%,
+    #09101d 50%,
+    transparent 75%
+  );
+  border-top-left-radius: 40px;
+}
+
+/* --------------------------------------------- */
+/* KEYFRAME ANIMATIONS                           */
+/* --------------------------------------------- */
+@keyframes launch-glow-pulse {
+  0%, 100% {
+    box-shadow: 0 4px 20px rgba(77, 201, 246, 0.35);
+  }
+  50% {
+    box-shadow: 0 4px 35px rgba(77, 201, 246, 0.65);
+  }
+}
+
+@keyframes cabin-shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-6px); }
+  40%, 80% { transform: translateX(6px); }
+}
+
+/* Pre-departure Boot Sequence State */
+.spacecraft-cabin-screen.cabin--booting .cabin-center-hud,
+.spacecraft-cabin-screen.cabin--booting .cabin-dashboard-deck {
+  opacity: 0.4;
+  filter: brightness(0.6);
+  transition: opacity 1s ease, filter 1s ease;
+}
+
+.spacecraft-cabin-screen.cabin--online .cabin-center-hud,
+.spacecraft-cabin-screen.cabin--online .cabin-dashboard-deck {
+  opacity: 1;
+  filter: brightness(1);
+  transition: opacity 0.8s ease, filter 0.8s ease;
+}
+
+/* --------------------------------------------- */
+/* RESPONSIVE DESIGN                             */
+/* --------------------------------------------- */
+@media (max-width: 900px) {
+  .cabin-controls-grid {
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+  }
+  .cabin-seatbelt-module {
+    align-items: center;
+  }
+  .cabin-launch-module {
+    align-items: center;
+    width: 100%;
+  }
+  .cabin-launch-btn {
+    width: 100%;
+    justify-content: center;
+  }
+  .cabin-telemetry-drawer {
+    width: 95%;
+  }
+  .telemetry-drawer-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .cabin-top-canopy {
+    padding: 0.65rem 1rem;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+  }
+  .cabin-canopy-subtitle {
+    display: none;
+  }
+  .cabin-dashboard-deck {
+    padding: 0.75rem 1rem 1rem;
+  }
+  .cabin-welcome-badge {
+    padding: 0.25rem 0.65rem;
+  }
+  .cabin-welcome-heading {
+    font-size: 1rem;
+  }
+  .cabin-mission-strip {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .cabin-filter-group {
+    width: 100%;
+    justify-content: center;
+  }
+}

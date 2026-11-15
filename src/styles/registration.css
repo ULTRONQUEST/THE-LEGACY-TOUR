@@ -1,0 +1,363 @@
+/* ============================================= */
+/* REGISTRATION SCREEN (SPACEPORT CHECK-IN)      */
+/* ============================================= */
+.registration-screen {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-boarding);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(5, 5, 8, 0.96);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  padding: var(--page-padding-y) var(--page-padding-x);
+  overflow-y: auto;
+}
+
+.registration-screen[hidden] {
+  display: none !important;
+}
+
+.registration-container {
+  width: 100%;
+  max-width: 580px;
+  margin: auto;
+}
+
+.registration-card {
+  position: relative;
+  background: linear-gradient(
+    145deg,
+    rgba(11, 23, 42, 0.85) 0%,
+    rgba(6, 10, 18, 0.95) 100%
+  );
+  border: 1px solid rgba(77, 201, 246, 0.2);
+  border-radius: 6px;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.7),
+              0 0 32px rgba(77, 201, 246, 0.08);
+  overflow: hidden;
+}
+
+/* Subtle top cyan glow accent */
+.registration-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--color-atmosphere-cyan) 30%,
+    var(--color-amber) 70%,
+    transparent 100%
+  );
+}
+
+/* Card Header */
+.registration-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding: 1.25rem 1.75rem;
+  border-bottom: 1px solid rgba(232, 230, 225, 0.08);
+  background: rgba(5, 5, 8, 0.4);
+}
+
+.registration-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.registration-insignia {
+  width: 26px;
+  height: 26px;
+  color: var(--color-amber);
+  flex-shrink: 0;
+}
+
+.registration-insignia svg {
+  width: 100%;
+  height: 100%;
+}
+
+.registration-brand-title {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--color-off-white);
+}
+
+.registration-status-badge {
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: var(--color-atmosphere-cyan);
+  background: rgba(77, 201, 246, 0.08);
+  border: 1px solid rgba(77, 201, 246, 0.25);
+  padding: 2px 7px;
+  border-radius: 2px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.registration-pulse-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--color-atmosphere-cyan);
+  animation: status-blink 1.8s ease-in-out infinite;
+}
+
+/* Card Body */
+.registration-body {
+  padding: 2.25rem 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.registration-intro {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.registration-kicker {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  color: var(--color-amber);
+}
+
+.registration-heading {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 3.2vw, 1.85rem);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: var(--color-off-white);
+  line-height: 1.15;
+}
+
+.registration-desc {
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--color-muted);
+}
+
+/* Form */
+.registration-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.registration-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.registration-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.registration-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: var(--color-off-white);
+}
+
+.registration-counter {
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.08em;
+  color: var(--color-subtle);
+}
+
+.registration-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.registration-input {
+  width: 100%;
+  padding: 0.95rem 1.15rem;
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--color-off-white);
+  background: rgba(5, 5, 8, 0.7);
+  border: 1px solid rgba(232, 230, 225, 0.18);
+  border-radius: 3px;
+  outline: none;
+  transition: border-color var(--duration-fast) var(--ease-out-quart),
+              box-shadow var(--duration-fast) var(--ease-out-quart),
+              background var(--duration-fast) var(--ease-out-quart);
+}
+
+.registration-input::placeholder {
+  color: var(--color-subtle);
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 0.9rem;
+}
+
+.registration-input:focus {
+  border-color: var(--color-atmosphere-cyan);
+  box-shadow: 0 0 16px rgba(77, 201, 246, 0.2),
+              inset 0 0 8px rgba(77, 201, 246, 0.05);
+  background: rgba(11, 23, 42, 0.85);
+}
+
+.registration-input.is-invalid {
+  border-color: #ff5252 !important;
+  box-shadow: 0 0 12px rgba(255, 82, 82, 0.25) !important;
+}
+
+/* Validation Message */
+.registration-validation {
+  display: none;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 500;
+  color: #ff7676;
+  padding: 0.45rem 0.75rem;
+  background: rgba(255, 82, 82, 0.08);
+  border: 1px solid rgba(255, 82, 82, 0.25);
+  border-radius: 2px;
+  animation: fade-in 0.25s ease-out;
+}
+
+.registration-validation.is-visible {
+  display: flex;
+}
+
+.registration-validation-icon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+/* Submit Button */
+.registration-submit-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 1rem 1.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: var(--color-deep-black);
+  background: var(--color-amber);
+  border: 1px solid var(--color-amber);
+  border-radius: 3px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform var(--duration-fast) var(--ease-out-quart),
+              box-shadow var(--duration-fast) var(--ease-out-quart),
+              filter var(--duration-fast) var(--ease-out-quart);
+}
+
+.registration-submit-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(212, 165, 74, 0.35);
+  filter: brightness(1.08);
+}
+
+.registration-submit-btn:active {
+  transform: translateY(0);
+}
+
+.registration-submit-icon {
+  width: 18px;
+  height: 18px;
+  transition: transform var(--duration-normal) var(--ease-out-expo);
+}
+
+.registration-submit-btn:hover .registration-submit-icon {
+  transform: translateX(4px);
+}
+
+/* Card Footer */
+.registration-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.75rem;
+  border-top: 1px solid rgba(232, 230, 225, 0.08);
+  background: rgba(5, 5, 8, 0.4);
+}
+
+.registration-return-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: var(--color-muted);
+  cursor: pointer;
+  transition: color var(--duration-fast) var(--ease-in-out);
+}
+
+.registration-return-btn:hover {
+  color: var(--color-amber);
+}
+
+.registration-return-icon {
+  width: 15px;
+  height: 15px;
+  transition: transform var(--duration-normal) var(--ease-out-expo);
+}
+
+.registration-return-btn:hover .registration-return-icon {
+  transform: translateX(-3px);
+}
+
+.registration-code {
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.12em;
+  color: var(--color-faint);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .registration-header {
+    padding: 1rem 1.25rem;
+  }
+  .registration-body {
+    padding: 1.5rem 1.25rem;
+  }
+  .registration-footer {
+    padding: 0.85rem 1.25rem;
+  }
+  .registration-submit-btn {
+    font-size: 0.72rem;
+    padding: 0.85rem 1rem;
+  }
+}
+

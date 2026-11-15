@@ -1,0 +1,6 @@
+{
+  "name": "Mars Transit & Opportunity",
+  "description": "An interactive, cinematic 3D Mars exploration journey from lunar departure to the landing site of the Opportunity rover.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

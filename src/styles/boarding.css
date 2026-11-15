@@ -1,0 +1,494 @@
+/* ============================================= */
+/* PERSONALIZED DIGITAL BOARDING PASS SCREEN     */
+/* ============================================= */
+.boarding {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-boarding);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(5, 5, 8, 0.96);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  padding: var(--page-padding-y) var(--page-padding-x);
+  overflow-y: auto;
+}
+
+.boarding[hidden] {
+  display: none !important;
+}
+
+.boarding__container {
+  width: 100%;
+  max-width: 660px;
+  margin: auto;
+}
+
+/* --------------------------------------------- */
+/* Pass Card (Futuristic Travel Document)        */
+/* --------------------------------------------- */
+.boarding__card {
+  position: relative;
+  background: linear-gradient(
+    145deg,
+    rgba(10, 20, 38, 0.9) 0%,
+    rgba(6, 11, 20, 0.98) 100%
+  );
+  border: 1px solid rgba(77, 201, 246, 0.25);
+  border-radius: 8px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.75),
+              0 0 35px rgba(77, 201, 246, 0.1);
+  overflow: hidden;
+  transition: transform var(--duration-normal) var(--ease-out-quart);
+}
+
+/* Metallic top edge highlight */
+.boarding__card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(192, 198, 208, 0.4) 25%,
+    var(--color-atmosphere-cyan) 50%,
+    var(--color-amber) 75%,
+    transparent 100%
+  );
+}
+
+/* --------------------------------------------- */
+/* Document Header                               */
+/* --------------------------------------------- */
+.boarding__card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding: 1.25rem 1.75rem;
+  background: rgba(5, 8, 14, 0.6);
+  border-bottom: 1px solid rgba(232, 230, 225, 0.08);
+}
+
+.boarding__header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.boarding__card-insignia {
+  width: 28px;
+  height: 28px;
+  color: var(--color-amber);
+  flex-shrink: 0;
+}
+
+.boarding__card-insignia svg {
+  width: 100%;
+  height: 100%;
+}
+
+.boarding__header-titles {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.boarding__card-title {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  color: var(--color-off-white);
+}
+
+.boarding__card-subtitle {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: var(--color-amber);
+}
+
+.boarding__status-cleared {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.25rem 0.65rem;
+  background: rgba(77, 201, 246, 0.1);
+  border: 1px solid rgba(77, 201, 246, 0.35);
+  border-radius: 2px;
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--color-atmosphere-cyan);
+}
+
+.boarding__status-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--color-atmosphere-cyan);
+  animation: status-blink 1.8s ease-in-out infinite;
+}
+
+/* --------------------------------------------- */
+/* Perforated Tear Line                          */
+/* --------------------------------------------- */
+.boarding__tear-line {
+  position: relative;
+  height: 1px;
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(77, 201, 246, 0.25) 0px,
+    rgba(77, 201, 246, 0.25) 6px,
+    transparent 6px,
+    transparent 12px
+  );
+  margin: 0;
+}
+
+.boarding__tear-line::before,
+.boarding__tear-line::after {
+  content: '';
+  position: absolute;
+  top: -8px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: rgba(5, 5, 8, 1);
+  box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.8);
+}
+
+.boarding__tear-line::before {
+  left: -8px;
+}
+
+.boarding__tear-line::after {
+  right: -8px;
+}
+
+/* --------------------------------------------- */
+/* Document Body                                 */
+/* --------------------------------------------- */
+.boarding__card-body {
+  padding: 1.75rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Top Passenger Spotlight */
+.boarding__passenger-hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: var(--space-md);
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid rgba(232, 230, 225, 0.08);
+}
+
+.boarding__passenger-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.boarding__field-label {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  color: var(--color-subtle);
+  text-transform: uppercase;
+}
+
+.boarding__passenger-name {
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 3.2vw, 1.85rem);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: var(--color-off-white);
+  line-height: 1.2;
+  word-break: break-word;
+}
+
+.boarding__mission-id-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.25rem;
+  flex-shrink: 0;
+}
+
+.boarding__mission-id-val {
+  font-family: var(--font-mono);
+  font-size: clamp(0.85rem, 1.4vw, 1.05rem);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--color-amber);
+  background: rgba(212, 165, 74, 0.08);
+  border: 1px solid rgba(212, 165, 74, 0.25);
+  padding: 0.2rem 0.6rem;
+  border-radius: 2px;
+}
+
+/* Multi-Column Data Section */
+.boarding__details-layout {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.boarding__meta-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem 1.5rem;
+}
+
+.boarding__meta-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.boarding__meta-col--full {
+  grid-column: span 2;
+}
+
+.boarding__field-value {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--color-off-white);
+}
+
+.boarding__field-value--accent {
+  color: var(--color-atmosphere-cyan);
+}
+
+/* Decorative Barcode */
+.boarding__barcode-zone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.75rem 0.85rem;
+  background: rgba(5, 5, 8, 0.75);
+  border: 1px solid rgba(232, 230, 225, 0.1);
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.boarding__barcode-svg {
+  width: 110px;
+  height: 52px;
+  color: rgba(232, 230, 225, 0.85);
+}
+
+.boarding__barcode-number {
+  font-family: var(--font-mono);
+  font-size: 0.5rem;
+  letter-spacing: 0.2em;
+  color: var(--color-muted);
+}
+
+/* Tagline Bar */
+.boarding__tagline-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.65rem 1rem;
+  background: rgba(11, 23, 42, 0.5);
+  border: 1px solid rgba(212, 165, 74, 0.15);
+  border-radius: 3px;
+}
+
+.boarding__tagline-text {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: var(--color-amber);
+  text-align: center;
+}
+
+/* --------------------------------------------- */
+/* Document Actions Bar                          */
+/* --------------------------------------------- */
+.boarding__actions-area {
+  padding: 1.25rem 2rem;
+  background: rgba(5, 8, 14, 0.7);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Primary Action: Enter Spacecraft */
+.boarding__primary-cta-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  width: 100%;
+  padding: 1rem 1.5rem;
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  color: var(--color-deep-black);
+  background: linear-gradient(
+    90deg,
+    var(--color-atmosphere-cyan) 0%,
+    #8ee2ff 100%
+  );
+  border: 1px solid var(--color-atmosphere-cyan);
+  border-radius: 3px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform var(--duration-fast) var(--ease-out-quart),
+              box-shadow var(--duration-fast) var(--ease-out-quart),
+              filter var(--duration-fast) var(--ease-out-quart);
+}
+
+.boarding__primary-cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 28px rgba(77, 201, 246, 0.4);
+  filter: brightness(1.08);
+}
+
+.boarding__primary-cta-btn:active {
+  transform: translateY(0);
+}
+
+.boarding__cta-arrow {
+  width: 18px;
+  height: 18px;
+  transition: transform var(--duration-normal) var(--ease-out-expo);
+}
+
+.boarding__primary-cta-btn:hover .boarding__cta-arrow {
+  transform: translateX(5px);
+}
+
+/* Secondary Tools Row */
+.boarding__secondary-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.boarding__btn-group {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.boarding__tool-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--color-muted);
+  background: rgba(232, 230, 225, 0.05);
+  border: 1px solid rgba(232, 230, 225, 0.12);
+  padding: 0.35rem 0.65rem;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: color var(--duration-fast) var(--ease-in-out),
+              border-color var(--duration-fast) var(--ease-in-out),
+              background var(--duration-fast) var(--ease-in-out);
+}
+
+.boarding__tool-btn:hover {
+  color: var(--color-off-white);
+  border-color: rgba(232, 230, 225, 0.3);
+  background: rgba(232, 230, 225, 0.1);
+}
+
+.boarding__tool-btn--danger:hover {
+  color: #ff7676;
+  border-color: rgba(255, 82, 82, 0.4);
+  background: rgba(255, 82, 82, 0.08);
+}
+
+.boarding__return-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: var(--color-subtle);
+  cursor: pointer;
+  transition: color var(--duration-fast) var(--ease-in-out);
+}
+
+.boarding__return-link:hover {
+  color: var(--color-amber);
+}
+
+/* --------------------------------------------- */
+/* Responsive Tweaks                             */
+/* --------------------------------------------- */
+@media (max-width: 600px) {
+  .boarding__card-header {
+    padding: 1rem 1.25rem;
+    flex-wrap: wrap;
+  }
+  .boarding__card-body {
+    padding: 1.25rem;
+  }
+  .boarding__passenger-hero {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .boarding__mission-id-block {
+    align-items: flex-start;
+  }
+  .boarding__details-layout {
+    grid-template-columns: 1fr;
+  }
+  .boarding__meta-grid {
+    grid-template-columns: 1fr;
+  }
+  .boarding__meta-col--full {
+    grid-column: span 1;
+  }
+  .boarding__barcode-zone {
+    align-self: center;
+    width: 100%;
+  }
+  .boarding__barcode-svg {
+    width: 140px;
+  }
+  .boarding__actions-area {
+    padding: 1rem 1.25rem;
+  }
+  .boarding__secondary-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .boarding__btn-group {
+    justify-content: space-between;
+  }
+  .boarding__return-link {
+    justify-content: center;
+    padding-top: 0.25rem;
+  }
+}

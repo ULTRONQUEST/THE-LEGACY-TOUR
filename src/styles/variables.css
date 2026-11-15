@@ -1,0 +1,57 @@
+/* ============================================= */
+/* DESIGN TOKENS                                 */
+/* ============================================= */
+:root {
+  /* Colors */
+  --color-deep-black: #050508;
+  --color-space-dark: #0a0d14;
+  --color-space-blue: #0b172a;
+  --color-atmosphere-cyan: #4dc9f6;
+  --color-atmosphere-blue: #1a6fb5;
+  --color-amber: #d4a54a;
+  --color-amber-dim: rgba(212, 165, 74, 0.2);
+  --color-amber-glow: rgba(212, 165, 74, 0.4);
+  --color-off-white: #f0ede6;
+  --color-muted: rgba(232, 230, 225, 0.65);
+  --color-subtle: rgba(232, 230, 225, 0.3);
+  --color-faint: rgba(232, 230, 225, 0.1);
+  --color-card-bg: rgba(9, 14, 24, 0.72);
+  --color-card-border: rgba(232, 230, 225, 0.12);
+
+  /* Typography System */
+  /* Headlines: Orbitron, bold */
+  --font-display: 'Orbitron', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  /* Body: Inter */
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  /* Technical Metadata: IBM Plex Mono */
+  --font-mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+
+  /* Spacing Scale */
+  --space-2xs: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+
+  /* Layout */
+  --page-padding-x: clamp(1.25rem, 4vw, 3.5rem);
+  --page-padding-y: clamp(1rem, 2.5vh, 2.25rem);
+  --max-width: 1520px;
+
+  /* Animation */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --duration-fast: 200ms;
+  --duration-normal: 350ms;
+  --duration-slow: 700ms;
+
+  /* Z-index layers */
+  --z-stars: 0;
+  --z-earth: 1;
+  --z-vignette: 2;
+  --z-content: 10;
+  --z-boarding: 200;
+}

@@ -1,0 +1,162 @@
+/* ============================================= */
+/* ANIMATIONS & TRANSITIONS                      */
+/* ============================================= */
+
+/* --------------------------------------------- */
+/* Keyframe Definitions                          */
+/* --------------------------------------------- */
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes earth-rise {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(6%);
+  }
+  to {
+    opacity: 0.58;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+@keyframes status-blink {
+  0%, 100% {
+    opacity: 0.9;
+  }
+  50% {
+    opacity: 0.25;
+  }
+}
+
+@keyframes cta-scan {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+@keyframes boarding-enter {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* --------------------------------------------- */
+/* Staggered Cinematic Entrances                 */
+/* --------------------------------------------- */
+
+/* Earth Background */
+.landing__earth-image {
+  opacity: 0;
+  animation: earth-rise 1.8s var(--ease-out-expo) 0.1s forwards;
+}
+
+/* Zone 1: Top Bar */
+.landing__topbar {
+  opacity: 0;
+  animation: slide-down 0.9s var(--ease-out-expo) 0.25s forwards;
+}
+
+/* Zone 2: Hero */
+.hero__tagline-badge {
+  opacity: 0;
+  animation: fade-in 0.7s var(--ease-out-quart) 0.45s forwards;
+}
+
+.hero__headline-line--light {
+  opacity: 0;
+  animation: fade-up 0.9s var(--ease-out-expo) 0.6s forwards;
+}
+
+.hero__headline-line--glow {
+  opacity: 0;
+  animation: fade-up 0.9s var(--ease-out-expo) 0.75s forwards;
+}
+
+.hero__description {
+  opacity: 0;
+  animation: fade-up 0.8s var(--ease-out-quart) 0.9s forwards;
+}
+
+.hero__action-area {
+  opacity: 0;
+  animation: fade-up 0.8s var(--ease-out-quart) 1.05s forwards;
+}
+
+/* Zone 3: Destinations */
+.landing__destinations {
+  opacity: 0;
+  animation: fade-up 0.9s var(--ease-out-quart) 1.25s forwards;
+}
+
+/* Boarding Screen Card */
+.boarding.is-entering .boarding__card,
+.registration-screen.is-entering .registration-card,
+.spacecraft-cabin-screen.is-entering .cabin-dashboard-deck,
+.launch-placeholder-screen.is-entering .launch-placeholder-card {
+  animation: boarding-enter 0.5s var(--ease-out-expo) forwards;
+}
+
+/* --------------------------------------------- */
+/* Reduced Motion Compliance                     */
+/* --------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  .landing__earth-image {
+    opacity: 0.58 !important;
+    transform: translateX(-50%) !important;
+  }
+
+  .landing__topbar,
+  .hero__tagline-badge,
+  .hero__headline-line--light,
+  .hero__headline-line--glow,
+  .hero__description,
+  .hero__action-area,
+  .landing__destinations {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
